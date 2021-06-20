@@ -6,7 +6,82 @@
 /*   By: ade-agui <ade-agui@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 22:11:46 by ade-agui          #+#    #+#             */
-/*   Updated: 2021/06/15 22:11:47 by ade-agui         ###   ########.fr       */
+/*   Updated: 2021/06/19 20:58:20 by ade-agui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "get_next_line.h"
+
+size_t	ft_strlen(const char *str)
+{
+	int		i;
+
+	i = 0;
+	if (str[i] == '\0')
+		return (0);
+	while (str[i])
+		i++;
+	return (i);
+}
+
+void	*ft_memcpy(void *dest, const void *src, size_t n)
+{
+	size_t		i;
+	char		*aux_dst;
+	const char	*aux_src;
+
+	aux_dst = dest;
+	aux_src = src;
+	i = 0;
+	while (i < n && dest != src)
+	{
+		aux_dst[i] = aux_src[i];
+		i++;
+	}
+	return (dest);
+}
+
+char	*ft_strdup(const char *s1)
+{
+	char	*s2;
+
+	s2 = (char *)malloc(ft_strlen(s1) + 1);
+	if (s2 == 0)
+		return (0);
+	ft_memcpy(s2, s1, ft_strlen(s1) + 1);
+	return (s2);
+}
+
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	char	*join;
+	size_t	len;
+	size_t	i;
+	size_t	j;
+
+	len = (ft_strlen(s1) + ft_strlen(s2)) + 1;
+	join = (char *)malloc(len);
+	if (!s1 || !s2 || join == 0)
+		return (0);
+	i = 0;
+	while (s1[i] != '\0')
+	{
+		join[i] = s1[i];
+		i++;
+	}
+	j = 0;
+	while (s2[j] != '\0')
+		join[i++] = s2[j++];
+	join[i] = '\0';
+	return (join);
+}
+
+char	*ft_strchr(const char *s, int c)
+{
+	while (*s && *s != (c % 256))
+		s++;
+	if (*s == '\0' && (c % 256) != '\0')
+		return (0);
+	else
+		return ((char *)s);
+}

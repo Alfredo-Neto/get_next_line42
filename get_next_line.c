@@ -6,34 +6,21 @@
 /*   By: ade-agui <ade-agui@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 22:06:59 by ade-agui          #+#    #+#             */
-/*   Updated: 2021/06/19 20:35:35 by ade-agui         ###   ########.fr       */
+/*   Updated: 2021/06/19 21:12:02 by ade-agui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <stdio.h>
 
-static int line_break(char *line_read)
-{
-	int i;
-
-	i = 0;
-	if (line_read == 0)
-		return (-1);
-	while (line_read[i] != '\0')
-	{
-		if (line_read[i] == '\n')
-			return (i);
-		i++;
-	}
-	return (-1);
-}
-
 static int return_previous_line(char **save, char **line, int ret)
 {
-	ft_strtrim(save, "\n")
-	
-	return (ret);
+	if (ret < 0)
+		*line =  NULL;
+	else
+		*line = ft_strdup(*save);
+	save = NULL;
+    return (ret);
 }
 
 int get_next_line(int fd, char **line)
@@ -60,8 +47,8 @@ int get_next_line(int fd, char **line)
 			break;
 		ret = read(fd, buffer, BUFFER_SIZE);
 	}
-	return (return_previous_line(&save, line, ret));
 	free(buffer);
+	return (return_previous_line(&save, line, ret));
 }
 
 int main()
