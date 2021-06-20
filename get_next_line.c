@@ -6,17 +6,17 @@
 /*   By: ade-agui <ade-agui@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 22:06:59 by ade-agui          #+#    #+#             */
-/*   Updated: 2021/06/19 21:12:02 by ade-agui         ###   ########.fr       */
+/*   Updated: 2021/06/19 21:22:15 by ade-agui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <stdio.h>
 
-static int return_previous_line(char **save, char **line, int ret)
+int return_previous_line(char **save, char **line, int ret)
 {
 	if (ret < 0)
-		*line =  NULL;
+		*line = NULL;
 	else
 		*line = ft_strdup(*save);
 	save = NULL;
