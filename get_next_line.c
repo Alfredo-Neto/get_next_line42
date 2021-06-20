@@ -6,11 +6,12 @@
 /*   By: ade-agui <ade-agui@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 22:06:59 by ade-agui          #+#    #+#             */
-/*   Updated: 2021/06/20 05:01:17 by ade-agui         ###   ########.fr       */
+/*   Updated: 2021/06/20 07:13:14 by ade-agui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
 
 static int    find_line_break(char *s_line)
 {
@@ -28,17 +29,24 @@ static int    find_line_break(char *s_line)
     return (-1);
 }
 
-int output(char **save, char **line, int ret)
+int return_line(char **save, char **line)
 {
-	int i;
 
+	int i;
+	char *tmp;
+	
 	i = find_line_break(*save);
-	if (ret < 0)
-		*line = NULL;
+	if (i >= 0)
+	{
+		*line = ft_substr(*save, 0, i);
+		tmp = ft_substr(*save, i + 1, ft_strlen(*save));
+		free(*save);
+		*save = tmp;
+		tmp = NULL;
+		return (1);
+	}
 	else
-		*line = ft_substr(*save, 0, i); // olamundo\nolajorge // save = olamundo\no
-	save = NULL;
-	return (ret);
+		return (0);
 }
 
 int get_next_line(int fd, char **line)
@@ -48,7 +56,6 @@ int get_next_line(int fd, char **line)
 	static char *save;
 	ssize_t ret;
 
-	// verify_save();
 	buffer = malloc(BUFFER_SIZE + 1);
 	ret = read(fd, buffer, BUFFER_SIZE);
 	while (ret > 0)
@@ -62,12 +69,12 @@ int get_next_line(int fd, char **line)
 			free(save);
 			save = tmp;
 		}
-		if (ft_strchr(buffer, '\n'))
+		if (ft_strchr(save, '\n'))
 			break;
 		ret = read(fd, buffer, BUFFER_SIZE);
 	}
 	free(buffer);
-	return (output(&save, line, ret));
+	return (return_line(&save, line));
 }
 
 int main(void)

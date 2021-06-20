@@ -105,7 +105,7 @@ int            get_next_line(int fd, char **line)
     }
     else
         s_l[fd] = strdup("");
-    ret = read(fd, buff, BUFFER_SIZE);
+    ret = read(fd, buff, BUFFER_SIZE); // olamundo\nolajorge // save = olamundo\no
     while (ret > 0)
     {
         buff[ret] = '\0';
