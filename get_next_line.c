@@ -6,35 +6,33 @@
 /*   By: ade-agui <ade-agui@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 22:06:59 by ade-agui          #+#    #+#             */
-/*   Updated: 2021/06/20 07:13:14 by ade-agui         ###   ########.fr       */
+/*   Updated: 2021/06/20 07:59:26 by ade-agui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-
-static int    find_line_break(char *s_line)
+static int	find_line_break(char *s_line)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    if (s_line == 0)
-        return (-1);
-    while (s_line[i] != '\0')
-    {
-        if (s_line[i] == '\n')
-            return (i);
-        i++;
-    }
-    return (-1);
+	i = 0;
+	if (s_line == 0)
+		return (-1);
+	while (s_line[i] != '\0')
+	{
+		if (s_line[i] == '\n')
+			return (i);
+		i++;
+	}
+	return (-1);
 }
 
-int return_line(char **save, char **line)
+int	return_line(char **save, char **line)
 {
+	int		i;
+	char	*tmp;
 
-	int i;
-	char *tmp;
-	
 	i = find_line_break(*save);
 	if (i >= 0)
 	{
@@ -49,12 +47,12 @@ int return_line(char **save, char **line)
 		return (0);
 }
 
-int get_next_line(int fd, char **line)
+int	get_next_line(int fd, char **line)
 {
-	char *buffer;
-	char *tmp;
-	static char *save;
-	ssize_t ret;
+	char		*buffer;
+	char		*tmp;
+	static char	*save;
+	ssize_t		ret;
 
 	buffer = malloc(BUFFER_SIZE + 1);
 	ret = read(fd, buffer, BUFFER_SIZE);
@@ -65,28 +63,14 @@ int get_next_line(int fd, char **line)
 			save = ft_strdup(buffer);
 		else
 		{
-			tmp = ft_strjoin(save, buffer); // olamundo\nolajorge // save = olamundo\no
+			tmp = ft_strjoin(save, buffer);
 			free(save);
 			save = tmp;
 		}
 		if (ft_strchr(save, '\n'))
-			break;
+			break ;
 		ret = read(fd, buffer, BUFFER_SIZE);
 	}
 	free(buffer);
 	return (return_line(&save, line));
-}
-
-int main(void)
-{
-	char *linha;
-	int fd;
-
-	fd = open("/home/alfredobraule/gnl_test.txt", O_RDONLY);
-	while (get_next_line(fd, &linha))
-	{
-		printf("%s", linha);
-		printf("\n");
-		free(linha);
-	}
 }
