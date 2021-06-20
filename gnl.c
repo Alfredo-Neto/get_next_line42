@@ -80,7 +80,7 @@ static int    gnl_return_line(char **s_line, char **line)
     if (i >= 0)
     {
         *line = ft_substr(*s_line, 0, i);
-        tmp = ft_substr(*s_line, i + 1, strlen(*s_line));
+        tmp = ft_substr(*s_line, i + 1, strlen(*s_line)); // olamundo\nolajorge // save = olamundo\no
         free(*s_line);
         *s_line = tmp;
         tmp = NULL;
@@ -116,7 +116,7 @@ int            get_next_line(int fd, char **line)
             return (1);
         ret = read(fd, buff, BUFFER_SIZE);
     }
-    *line = ret < 0 ? NULL : s_l[fd];
+    *line = ret < 0 ? NULL : s_l[fd]; // ret <= 0
     s_l[fd] = NULL;
     return (ret);
 }
@@ -125,14 +125,14 @@ int main()
 {
     char *linha;
     int fd;
-    
+
     fd = open("/home/alfredobraule/gnl_test.txt", O_RDONLY);
-   while (get_next_line(fd, &linha))
-   {
+    while (get_next_line(fd, &linha))
+    {
         printf("%s", linha);
         printf("\n");
         free(linha);
-   }
+    }
     // printf("%s", linha);
     // printf("\n");
     
