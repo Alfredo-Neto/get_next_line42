@@ -6,7 +6,7 @@
 /*   By: ade-agui <ade-agui@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 22:06:59 by ade-agui          #+#    #+#             */
-/*   Updated: 2021/06/23 03:21:06 by ade-agui         ###   ########.fr       */
+/*   Updated: 2021/06/23 03:24:12 by ade-agui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	find_line_break(char *s_line)
 	return (-1);
 }
 
-int check_ret(char **save, char **line, ssize_t ret)
+static int check_ret(char **save, char **line, ssize_t ret)
 {
 	if (ret < 0)
 			*line = NULL;
@@ -38,7 +38,7 @@ int check_ret(char **save, char **line, ssize_t ret)
 	return (ret);
 }
 
-int	return_line(char **save, char **line, ssize_t ret)
+static int	return_line(char **save, char **line, ssize_t ret)
 {
 	int		i;
 	char	*tmp;
