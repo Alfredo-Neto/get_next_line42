@@ -6,7 +6,7 @@
 /*   By: ade-agui <ade-agui@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 22:06:59 by ade-agui          #+#    #+#             */
-/*   Updated: 2021/06/22 23:40:04 by ade-agui         ###   ########.fr       */
+/*   Updated: 2021/06/23 03:15:01 by ade-agui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	find_line_break(char *s_line)
 	return (-1);
 }
 
-int	return_line(char **save, char **line)
+int	return_line(char **save, char **line, ssize_t ret)
 {
 	int		i;
 	char	*tmp;
@@ -45,8 +45,12 @@ int	return_line(char **save, char **line)
 	}
 	else
 	{
-		*line = ft_strdup(*save);
-		return (0);
+		if (ret < 0)
+			*line = NULL;
+		else
+			*line = *save;
+		save = NULL;
+		return (ret);
 	}
 }
 
@@ -58,9 +62,7 @@ int	get_next_line(int fd, char **line)
 	ssize_t		ret;
 
 	buffer = malloc(BUFFER_SIZE + 1);
-	if (fd < 0 || BUFFER_SIZE == 0 || read(fd, buffer, 0) < 0)
-		return (-1);
-	ret = read(fd, buffer, BUFFER_SIZE); // 2 // olamundo\nolajorge
+	ret = read(fd, buffer, BUFFER_SIZE);
 	while (ret > 0)
 	{
 		buffer[ret] = '\0';
@@ -71,12 +73,12 @@ int	get_next_line(int fd, char **line)
 			tmp = ft_strjoin(save, buffer);
 			free(save);
 			save = tmp;
+			tmp = NULL;
 		}
 		if (ft_strchr(save, '\n'))
 			break ;
 		ret = read(fd, buffer, BUFFER_SIZE);
 	}
-
 	free(buffer);
-	return (return_line(&save, line));
+	return (return_line(&save, line, ret));
 }
