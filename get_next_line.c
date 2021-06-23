@@ -6,7 +6,7 @@
 /*   By: ade-agui <ade-agui@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 22:06:59 by ade-agui          #+#    #+#             */
-/*   Updated: 2021/06/22 21:17:00 by ade-agui         ###   ########.fr       */
+/*   Updated: 2021/06/22 23:40:04 by ade-agui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,10 @@ int	return_line(char **save, char **line)
 		return (1);
 	}
 	else
+	{
+		*line = ft_strdup(*save);
 		return (0);
+	}
 }
 
 int	get_next_line(int fd, char **line)
@@ -55,7 +58,9 @@ int	get_next_line(int fd, char **line)
 	ssize_t		ret;
 
 	buffer = malloc(BUFFER_SIZE + 1);
-	ret = read(fd, buffer, BUFFER_SIZE);
+	if (fd < 0 || BUFFER_SIZE == 0 || read(fd, buffer, 0) < 0)
+		return (-1);
+	ret = read(fd, buffer, BUFFER_SIZE); // 2 // olamundo\nolajorge
 	while (ret > 0)
 	{
 		buffer[ret] = '\0';
@@ -71,6 +76,7 @@ int	get_next_line(int fd, char **line)
 			break ;
 		ret = read(fd, buffer, BUFFER_SIZE);
 	}
+
 	free(buffer);
 	return (return_line(&save, line));
 }
