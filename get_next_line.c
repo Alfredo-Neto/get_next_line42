@@ -6,7 +6,7 @@
 /*   By: ade-agui <ade-agui@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 22:06:59 by ade-agui          #+#    #+#             */
-/*   Updated: 2021/06/23 03:24:12 by ade-agui         ###   ########.fr       */
+/*   Updated: 2021/06/23 03:38:22 by ade-agui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ int	get_next_line(int fd, char **line)
 			tmp = ft_strjoin(save, buffer);
 			free(save);
 			save = tmp;
-			tmp = NULL;
 		}
 		if (ft_strchr(save, '\n'))
 			break ;
