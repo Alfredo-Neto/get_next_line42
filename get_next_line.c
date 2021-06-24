@@ -6,7 +6,7 @@
 /*   By: ade-agui <ade-agui@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 22:06:59 by ade-agui          #+#    #+#             */
-/*   Updated: 2021/06/23 03:38:22 by ade-agui         ###   ########.fr       */
+/*   Updated: 2021/06/24 00:22:57 by ade-agui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,11 @@ static int	find_line_break(char *s_line)
 static int check_ret(char **save, char **line, ssize_t ret)
 {
 	if (ret < 0)
-			*line = NULL;
-		else
-			*line = *save;
+		*line = NULL;
+	else if (*save == NULL)
+		*line = ft_strdup("");
+	else
+		*line = *save;
 	save = NULL;
 	return (ret);
 }
