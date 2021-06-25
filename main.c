@@ -3,13 +3,14 @@
 int main(void)
 {
         char *linha;
-        // int fd;
+        int fd;
 
-        // fd = open("/home/alfredobraule/gnl_test.txt", O_RDONLY);
-        while (get_next_line(0, &linha))
+        fd = open("/home/alfredobraule/gnl_test.txt", O_RDONLY);
+        while (get_next_line(fd, &linha))
         {
                 printf("%s", linha);
                 printf("\n");
                 free(linha);
         }
+        free(linha);
 }
