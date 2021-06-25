@@ -6,7 +6,7 @@
 /*   By: ade-agui <ade-agui@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 22:06:59 by ade-agui          #+#    #+#             */
-/*   Updated: 2021/06/25 16:38:21 by ade-agui         ###   ########.fr       */
+/*   Updated: 2021/06/25 17:31:44 by ade-agui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ static int	return_line(char **save, char **line, ssize_t ret)
 		tmp = ft_substr(*save, i + 1, ft_strlen(*save));
 		free(*save);
 		*save = tmp;
+		tmp = NULL;
 		return (1);
 	}
 	else
