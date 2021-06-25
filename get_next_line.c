@@ -6,7 +6,7 @@
 /*   By: ade-agui <ade-agui@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 22:06:59 by ade-agui          #+#    #+#             */
-/*   Updated: 2021/06/25 16:05:32 by ade-agui         ###   ########.fr       */
+/*   Updated: 2021/06/25 16:10:50 by ade-agui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ int	get_next_line(int fd, char **line)
 	ssize_t		ret;
 
 	buffer = malloc(BUFFER_SIZE + 1);
+	if (buffer == NULL)
+		return (-1);
 	ret = read(fd, buffer, BUFFER_SIZE);
 	while (ret > 0)
 	{
