@@ -6,7 +6,7 @@
 /*   By: ade-agui <ade-agui@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 22:06:59 by ade-agui          #+#    #+#             */
-/*   Updated: 2021/06/25 18:47:00 by ade-agui         ###   ########.fr       */
+/*   Updated: 2021/06/25 18:48:10 by ade-agui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int check_ret(char **save, char **line, ssize_t ret)
 {
 	if (ret < 0)
 	{
-		*line == NULL;
+		*line = NULL;
 		return (-1);
 	}
 	else if (*save == NULL)
