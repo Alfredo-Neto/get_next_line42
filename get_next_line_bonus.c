@@ -6,7 +6,7 @@
 /*   By: ade-agui <ade-agui@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 22:06:59 by ade-agui          #+#    #+#             */
-/*   Updated: 2021/06/26 17:46:12 by ade-agui         ###   ########.fr       */
+/*   Updated: 2021/06/26 18:06:07 by ade-agui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,12 @@ static int check_ret(char **save, char **line, ssize_t ret)
 	return (ret);
 }
 
-static int	return_line(char **save, char **line, ssize_t ret)
+static int	return_line(char **save, char **line, ssize_t ret, int fd)
 {
 	int		i;
 	char	*tmp;
 
-	if(!line || BUFFER_SIZE <= 0)
+	if(fd < 0 || fd > OPEN_MAX || !line || BUFFER_SIZE <= 0)
 		return (-1);
 	i = find_line_break(*save);
 	if (i >= 0)
@@ -89,5 +89,5 @@ int	get_next_line(int fd, char **line)
 		ret = read(fd, buffer, BUFFER_SIZE);
 	}
 	free(buffer);
-	return (return_line(&save[fd], line, ret));
+	return (return_line(&save[fd], line, ret, fd));
 }
