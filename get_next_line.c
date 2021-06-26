@@ -6,7 +6,7 @@
 /*   By: ade-agui <ade-agui@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 22:06:59 by ade-agui          #+#    #+#             */
-/*   Updated: 2021/06/26 18:26:14 by ade-agui         ###   ########.fr       */
+/*   Updated: 2021/06/26 18:33:11 by ade-agui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,12 @@ static int	check_ret(char **save, char **line, ssize_t ret)
 	return (ret);
 }
 
-static int	return_line(char **save, char **line, ssize_t ret, int fd)
+static int	return_line(char **save, char **line, ssize_t ret)
 {
 	int		i;
 	char	*tmp;
 
-	if (fd < 0 || fd > OPEN_MAX || !line || BUFFER_SIZE <= 0)
+	if (!line || BUFFER_SIZE <= 0)
 		return (-1);
 	i = find_line_break(*save);
 	if (i >= 0)
@@ -67,7 +67,7 @@ static int	return_line(char **save, char **line, ssize_t ret, int fd)
 int	get_next_line(int fd, char **line)
 {
 	char		*buffer;
-	static char	*save[OPEN_MAX];
+	static char	*save;
 	char		*tmp;
 	ssize_t		ret;
 
@@ -76,18 +76,18 @@ int	get_next_line(int fd, char **line)
 	while (ret > 0)
 	{
 		buffer[ret] = '\0';
-		if (save[fd] == NULL)
-			save[fd] = ft_strdup(buffer);
+		if (save == NULL)
+			save = ft_strdup(buffer);
 		else
 		{
-			tmp = ft_strjoin(save[fd], buffer);
-			free(save[fd]);
-			save[fd] = tmp;
+			tmp = ft_strjoin(save, buffer);
+			free(save);
+			save = tmp;
 		}
-		if (ft_strchr(save[fd], '\n'))
+		if (ft_strchr(save, '\n'))
 			break ;
 		ret = read(fd, buffer, BUFFER_SIZE);
 	}
 	free(buffer);
-	return (return_line(&save[fd], line, ret, fd));
+	return (return_line(&save, line, ret));
 }
