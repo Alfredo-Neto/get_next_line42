@@ -6,7 +6,7 @@
 /*   By: ade-agui <ade-agui@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 22:06:59 by ade-agui          #+#    #+#             */
-/*   Updated: 2021/06/26 17:41:25 by ade-agui         ###   ########.fr       */
+/*   Updated: 2021/06/26 17:44:05 by ade-agui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static int	return_line(char **save, char **line, ssize_t ret)
 	int		i;
 	char	*tmp;
 
-	if (BUFFER_SIZE <= 0)
+	if(!line || BUFFER_SIZE <= 0)
 		return (-1);
 	i = find_line_break(*save);
 	if (i >= 0)
