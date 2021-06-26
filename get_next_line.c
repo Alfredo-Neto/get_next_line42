@@ -6,11 +6,11 @@
 /*   By: ade-agui <ade-agui@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 22:06:59 by ade-agui          #+#    #+#             */
-/*   Updated: 2021/06/26 18:02:53 by ade-agui         ###   ########.fr       */
+/*   Updated: 2021/06/26 18:26:14 by ade-agui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 static int	find_line_break(char *s_line)
 {
@@ -28,7 +28,7 @@ static int	find_line_break(char *s_line)
 	return (-1);
 }
 
-static int check_ret(char **save, char **line, ssize_t ret)
+static int	check_ret(char **save, char **line, ssize_t ret)
 {
 	if (ret < 0)
 	{
@@ -49,7 +49,7 @@ static int	return_line(char **save, char **line, ssize_t ret, int fd)
 	int		i;
 	char	*tmp;
 
-	if(fd < 0 || fd > OPEN_MAX || !line || BUFFER_SIZE <= 0)
+	if (fd < 0 || fd > OPEN_MAX || !line || BUFFER_SIZE <= 0)
 		return (-1);
 	i = find_line_break(*save);
 	if (i >= 0)
@@ -76,13 +76,13 @@ int	get_next_line(int fd, char **line)
 	while (ret > 0)
 	{
 		buffer[ret] = '\0';
-		if (save[fd]== NULL)
-			save[fd]= ft_strdup(buffer);
+		if (save[fd] == NULL)
+			save[fd] = ft_strdup(buffer);
 		else
 		{
 			tmp = ft_strjoin(save[fd], buffer);
 			free(save[fd]);
-			save[fd]= tmp;
+			save[fd] = tmp;
 		}
 		if (ft_strchr(save[fd], '\n'))
 			break ;
