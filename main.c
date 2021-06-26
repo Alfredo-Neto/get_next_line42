@@ -23,33 +23,33 @@
 #include <stdlib.h>
 #include "get_next_line.h"
 
-void doprint(int out, char **str, int line)
+void    doprint(int out, char **str, int line)
 {
-	printf("(LINE %i) [OUT %i] |%s|\n", line, out, *str);
-	free(*str);
-	*str = NULL;
+    printf("(LINE %i) [OUT %i] |%s|\n", line, out, *str);
+    free(*str);
+    *str = NULL;
 }
 
 int main()
 {
-	int fd;
+    int fd;
 
-	char *st;
-	int out;
-	int i;
+    char    *st;
+    int        out;
+    int        i;
 
-	st = NULL;
-	i = 0;
-	out = 1;
-	fd = open("/home/alfredobraule/gnl_test.txt", O_RDWR);
-	while (out)
-	{
-		out = get_next_line(-1, NULL);
-		doprint(out, &st, i++);
-		if (out < 0)
-			break;
-	}
-	close(fd);
-
-	return (0);
+    st = NULL;
+    i = 0;
+    out = 1;
+    fd = open("/home/alfredobraule/gnl_test.txt", O_RDWR);
+    while (out)
+    {
+        out = get_next_line(-1, NULL);
+        doprint(out, &st, i++);
+        if (out < 0)
+            break;
+    }
+    close(fd);
+    
+    return (0);
 }
