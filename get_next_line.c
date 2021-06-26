@@ -6,7 +6,7 @@
 /*   By: ade-agui <ade-agui@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 22:06:59 by ade-agui          #+#    #+#             */
-/*   Updated: 2021/06/25 23:45:30 by ade-agui         ###   ########.fr       */
+/*   Updated: 2021/06/25 23:59:31 by ade-agui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ static int	return_line(char **save, char **line, ssize_t ret)
 int	get_next_line(int fd, char **line)
 {
 	char		*buffer;
-	char		*tmp;
 	static char	*save;
 	ssize_t		ret;
 
@@ -81,11 +80,7 @@ int	get_next_line(int fd, char **line)
 		if (save == NULL)
 			save = ft_strdup(buffer);
 		else
-		{
-			tmp = ft_strjoin(save, buffer);
-			free(save);
-			save = tmp;
-		}
+			save = ft_strjoin(save, buffer);
 		if (ft_strchr(save, '\n'))
 			break ;
 		ret = read(fd, buffer, BUFFER_SIZE);
