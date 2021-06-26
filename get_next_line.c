@@ -6,11 +6,11 @@
 /*   By: ade-agui <ade-agui@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 22:06:59 by ade-agui          #+#    #+#             */
-/*   Updated: 2021/06/26 18:33:11 by ade-agui         ###   ########.fr       */
+/*   Updated: 2021/06/26 18:41:19 by ade-agui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_bonus.h"
+#include "get_next_line.h"
 
 static int	find_line_break(char *s_line)
 {
@@ -44,12 +44,12 @@ static int	check_ret(char **save, char **line, ssize_t ret)
 	return (ret);
 }
 
-static int	return_line(char **save, char **line, ssize_t ret)
+static int	return_line(char **save, char **line, ssize_t ret, int fd)
 {
 	int		i;
 	char	*tmp;
 
-	if (!line || BUFFER_SIZE <= 0)
+	if (fd < 0 || fd > OPEN_MAX || !line || BUFFER_SIZE <= 0)
 		return (-1);
 	i = find_line_break(*save);
 	if (i >= 0)
@@ -67,7 +67,7 @@ static int	return_line(char **save, char **line, ssize_t ret)
 int	get_next_line(int fd, char **line)
 {
 	char		*buffer;
-	static char	*save;
+	static char	*save[OPEN_MAX];
 	char		*tmp;
 	ssize_t		ret;
 
@@ -76,18 +76,18 @@ int	get_next_line(int fd, char **line)
 	while (ret > 0)
 	{
 		buffer[ret] = '\0';
-		if (save == NULL)
-			save = ft_strdup(buffer);
+		if (save[fd] == NULL)
+			save[fd] = ft_strdup(buffer);
 		else
 		{
-			tmp = ft_strjoin(save, buffer);
-			free(save);
-			save = tmp;
+			tmp = ft_strjoin(save[fd], buffer);
+			free(save[fd]);
+			save[fd] = tmp;
 		}
-		if (ft_strchr(save, '\n'))
+		if (ft_strchr(save[fd], '\n'))
 			break ;
 		ret = read(fd, buffer, BUFFER_SIZE);
 	}
 	free(buffer);
-	return (return_line(&save, line, ret));
+	return (return_line(&save[fd], line, ret, fd));
 }
