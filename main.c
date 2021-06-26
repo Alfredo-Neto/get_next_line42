@@ -1,4 +1,4 @@
-// #include "get_next_line.h"
+#include "get_next_line.h"
 
 // int main(void)
 // {
@@ -6,7 +6,7 @@
 //         int fd;
 
 //         fd = open("/home/alfredobraule/gnl_test.txt", O_RDONLY);
-//         // printf("%d", get_next_line(fd, &linha));
+//         printf("%d", get_next_line(fd, &linha));
 //         while (get_next_line(fd, &linha))
 //         {
 //                 // *line = NULL;
@@ -14,7 +14,7 @@
 //                 printf("\n");
 //                 free(linha);
 //         }
-//         // free(linha);
+//         free(linha);
 // }
 #include <stdio.h>
 #include <fcntl.h>
