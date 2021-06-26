@@ -6,7 +6,7 @@
 /*   By: ade-agui <ade-agui@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 22:06:59 by ade-agui          #+#    #+#             */
-/*   Updated: 2021/06/26 00:42:52 by ade-agui         ###   ########.fr       */
+/*   Updated: 2021/06/26 15:02:37 by ade-agui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,11 @@ static int	return_line(char **save, char **line, ssize_t ret)
 	int		i;
 	char	*tmp;
 
+	if(BUFFER_SIZE <= 0)
+		return (-1);
 	i = find_line_break(*save);
 	if (i >= 0)
 	{
-		if (line == NULL)
-			return (-1);
 		*line = ft_substr(*save, 0, i);
 		tmp = ft_substr(*save, i + 1, ft_strlen(*save));
 		free(*save);
@@ -68,6 +68,7 @@ int	get_next_line(int fd, char **line)
 {
 	char		*buffer;
 	static char	*save;
+	char		*tmp;
 	ssize_t		ret;
 
 	buffer = malloc(BUFFER_SIZE + 1);
@@ -78,7 +79,11 @@ int	get_next_line(int fd, char **line)
 		if (save == NULL)
 			save = ft_strdup(buffer);
 		else
-			save = ft_strjoin(save, buffer);
+		{
+			tmp = ft_strjoin(save, buffer);
+			free(save);
+			save = tmp;
+		}
 		if (ft_strchr(save, '\n'))
 			break ;
 		ret = read(fd, buffer, BUFFER_SIZE);
